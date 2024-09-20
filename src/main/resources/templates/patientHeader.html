@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <script th:src="@{/static/jquery.js}" type="text/javascript"></script>-->
+<!--    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap-icons-1.11.2/font/bootstrap-icons.css}">-->
+<!--    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
+    <title>header</title>
+    <style>
+        #frame {
+            background-color: #13c08b;
+            opacity: 87%;
+            width: 350px;
+            margin: 5px;
+            border: 1px solid #eee;
+            padding: 5px 0 5px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+        }
+        p {
+            font-size: 18px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="patientHeader">
+    <div class="card" id="frame">
+        <div class="card-body">
+            <div class="row mb-1">
+                <div class="col-4 mt-1">
+                    <h3 class="card-title text-white">{{patient.name}}</h3>
+                </div>
+                <div class="col-8 mt-1">
+<!--                    <p th:text="${Patient.sex + ' ' +  Patient.age + '岁'}"></p>-->
+                    <p> {{patient.sex}}  {{patient.age}}岁</p>
+                </div>
+            </div>
+<!--            <p class="card-text mt2" th:text="${'身份证号码：' + Patient.id}"></p>-->
+            <p>身份证号码：{{patient.id}}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                patient: {}
+            };
+        },
+        mounted () {
+            axios.get('/patient/interface/getPatient')
+                .then(response => {
+                    this.patient = response.data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    });
+    app.mount('#patientHeader');
+</script>
+</body>
+</html>

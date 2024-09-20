@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.HospitalSystem.Mapper.DoctorMapper">
+    <insert id="insertDoctor" parameterType="com.HospitalSystem.Entity.Doctor">
+        insert into Doctor (id, name, sex, dep_no, title, password, description) values (#{id}, #{name}, #{sex}, #{dep_no}, #{title}, #{password}, #{description})
+    </insert>
+
+    <delete id="deleteDoctor" parameterType="com.HospitalSystem.Entity.Doctor">
+        delete from Doctor where id = #{id}
+    </delete>
+
+    <update id="updateDoctor" parameterType="com.HospitalSystem.Entity.Doctor">
+        update Doctor set name = #{name}, sex = #{sex}, dep_no = #{dep_no}, title = #{title}, password = #{password}, description = #{description} where id = #{id}
+    </update>
+
+    <select id="getDoctor" parameterType="String" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView where id = #{id}
+    </select>
+
+    <select id="getDoctorsByDepartment" parameterType="com.HospitalSystem.Entity.Department" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView where dep_no = #{dep_no}
+    </select>
+
+    <select id="getDoctorsByTitle" parameterType="String" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView where title = #{title}
+    </select>
+
+    <select id="searchDoctorsByKeyWord" parameterType="String" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="getDoctorsNoWorkAtDate" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView where dep_no = #{param1} AND id not in (
+            select doctor_id
+            from DoctorArrangement
+            where date = #{param2}
+        );
+    </select>
+
+    <select id="getDoctorsWorkAtDate" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView where dep_no = #{param1} AND id in (
+            select doctor_id
+            from DoctorArrangement
+            where date = #{param2}
+        );
+    </select>
+
+    <select id="getAllDoctors" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView
+    </select>
+
+    <select id="getDoctorsForPagination" parameterType="com.HospitalSystem.Entity.Page" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from doctorview limit #{start}, #{size}
+    </select>
+
+    <select id="searchDoctorsForPagination" resultType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorView where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+        limit #{page.start}, #{page.size}
+    </select>
+
+    <select id="getCounts" resultType="Integer">
+        select count(*) from doctorview
+    </select>
+
+</mapper>

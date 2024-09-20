@@ -1,0 +1,40 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    hiddenmethod:
+      filter:
+        enabled: true
+    static-path-pattern: /static/**
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/HospitalDB?serverTimezone=Asia/Shanghai
+    username: root
+    password: 991234
+  data:
+    redis:
+      host: 127.0.0.1
+      database: 0
+      port: 6379
+      password:
+
+mybatis:
+  mapper-locations: classpath:/Mappers/*.xml
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+
+

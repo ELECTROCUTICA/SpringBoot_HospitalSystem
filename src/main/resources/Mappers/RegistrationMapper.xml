@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.HospitalSystem.Mapper.RegistrationMapper">
+    <insert id="insertRegistration" parameterType="com.HospitalSystem.Entity.Registration">
+        insert into Registration(id, doctor_id, patient_id, status, visit_date) values (#{id}, #{doctor_id}, #{patient_id}, #{status}, #{visit_date})
+    </insert>
+
+    <update id="updateRegistration" parameterType="com.HospitalSystem.Entity.Registration">
+        update Registration set doctor_id = #{doctor_id}, patient_id = #{patient_id}, status = #{status}, visit_date = #{visit_date}
+        where id = #{id}
+    </update>
+
+    <select id="getRegistration" parameterType="String" resultType="com.HospitalSystem.Entity.Registration">
+        select * from Registration where id = #{id}
+    </select>
+
+    <select id="getRegistrationsByPatientID" parameterType="String" resultType="com.HospitalSystem.Entity.Registration">
+        select * from Registration where patient_id = #{patient_id} order by visit_date desc
+    </select>
+
+
+
+    <select id="getRegistrationByPatientAtDate" resultType="com.HospitalSystem.Entity.Registration">
+        select * from Registration where patient_id = #{param1} AND visit_date = #{param2}
+    </select>
+
+    <select id="getRegistrationsByDoctorID" parameterType="String" resultType="com.HospitalSystem.Entity.Registration">
+        select * from Registration where doctor_id = #{doctor_id}
+    </select>
+
+    <select id="getRegistrationsMapByPatientID" parameterType="String" resultType="com.HospitalSystem.Map.RegistrationMap">
+        select * from registrationview where patient_id = #{patient_id} order by id desc
+    </select>
+
+    <select id="getRegistrationsMapByPatientIDForPagination" resultType="com.HospitalSystem.Map.RegistrationMap">
+        select * from RegistrationView where patient_id = #{patient_id} limit #{page.start}, #{page.size}
+    </select>
+
+    <select id="getRegistrationsMapByDoctorID" parameterType="String" resultType="com.HospitalSystem.Map.RegistrationMap">
+        select * from registrationview where doctor_id = #{doctor_id} AND visit_date between DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()
+                                       order by
+                                           case
+                                               when status = 1 then 0 else 1 end,
+                                           case
+                                               when status != 1 then id end desc;
+    </select>
+
+    <select id="getRegistrationsMapByPatientAtDate" resultType="com.HospitalSystem.Map.RegistrationMap">
+        select * from registrationView where visit_date = #{param1} AND patient_id = #{param2} AND status = 1
+    </select>
+
+    <select id="getLineUpCount" resultType="Integer">
+        select count(*) - 1 as lineup
+        from registrationview
+        where visit_date = #{param1} AND doctor_id = #{param2} AND status = 1;
+    </select>
+
+    <select id="getCount" resultType="Integer">
+        select count(*) from registration
+    </select>
+
+
+    <select id="getAllRegistration" resultType="com.HospitalSystem.Entity.Registration">
+        select * from Registration
+    </select>
+
+</mapper>

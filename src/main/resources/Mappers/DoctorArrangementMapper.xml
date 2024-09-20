@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.HospitalSystem.Mapper.DoctorArrangementMapper">
+    <insert id="insertArrangement" parameterType="com.HospitalSystem.Entity.DoctorArrangement">
+        insert into DoctorArrangement (date, doctor_id , remain) values (#{date}, #{doctor_id}, #{remain})
+    </insert>
+
+    <delete id="deleteArrangement" parameterType="com.HospitalSystem.Entity.DoctorArrangement">
+        delete from DoctorArrangement where doctor_id = #{doctor_id} AND date = #{date}
+    </delete>
+
+    <update id="subRemain" parameterType="com.HospitalSystem.Entity.DoctorArrangement">
+        update doctorarrangement set remain = remain - 1 where date = #{date} AND doctor_id = #{doctor_id}
+    </update>
+
+    <select id="getDoctorArrangementByDate" parameterType="java.util.Date">
+        select * from DoctorArrangement where date = #{date}
+    </select>
+
+    <select id="getDoctorArrangementByDoctor" parameterType="com.HospitalSystem.Entity.Doctor">
+        select * from DoctorArrangement where doctor_id = #{doctor_id}
+    </select>
+
+    <select id="getDoctorArrangement" resultType="com.HospitalSystem.Entity.DoctorArrangement">
+        select * from doctorarrangement where date = #{param1} AND doctor_id = #{param2}
+    </select>
+
+    <select id="getDoctorArrangementMap" resultType="com.HospitalSystem.Map.DoctorArrangementMap">
+        select * from ArrangementView where date = #{param1} AND doctor_id = #{param2}
+    </select>
+
+    <select id="getArrangementsByDepartmentAtDate" resultType="com.HospitalSystem.Map.DoctorArrangementMap">
+        select * from ArrangementView where dep_no = #{param1} AND date = #{param2}
+    </select>
+
+    <select id="getAllDoctorArrangement" resultType="com.HospitalSystem.Entity.DoctorArrangement">
+        select * from DoctorArrangement
+    </select>
+</mapper>

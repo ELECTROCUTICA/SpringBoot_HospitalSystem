@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{/static/jquery.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/bootstrap/css/bootstrap-icons-1.11.2/font/bootstrap-icons.css}">
+    <title>医生就诊系统-登录页</title>
+    <style>
+        body {
+            background-color: #0dcaf0;
+        }
+
+        #frame {
+            background-color: white;
+            opacity: 92%;
+            width: 450px;
+            margin: 100px auto;
+            text-align: center;
+            border: 1px solid #eee;
+            padding: 30px 0 50px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        a {
+            text-decoration: none;
+        }
+        input[type="submit"] {
+            margin-top: 5%;
+            margin-bottom: 2%;
+            width: 80%;
+            height: 35px;
+            font-size: medium;
+        }
+    </style>
+</head>
+
+<body>
+<div style="padding: 0">
+
+    <div id="frame">
+        <div style="width: 80%; margin: 0 auto">
+
+            <h3 class="text-center mb-4">医生就诊系统登录</h3>
+
+            <form id="loginForm" style="text-align: center">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+                    <input type="text" class="form-control" name="id" id="id" placeholder="工号"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="密码"/>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="submit" class="btn btn-primary btn-block form-control" name="login" id="login" value="登陆" />
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('#loginForm').submit(function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: /*[[@{/doctor/login/loginHandle}]]*/'',
+                type: "post",
+                dataType: "json",
+                data: {
+                    id: $('#id').val(),
+                    password: $('#password').val()
+                },
+                complete: function(data) {
+                    if (data.responseText === 'ok') {
+                        alert('登录成功');
+                        window.location.href= /*[[@{/doctor/list}]]*/'';
+                    }
+                    else {
+                        alert('登陆失败');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

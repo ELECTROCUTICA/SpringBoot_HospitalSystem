@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.HospitalSystem.Mapper.PatientMapper">
+    <insert id="insertPatient" parameterType="com.HospitalSystem.Entity.Patient">
+        insert into Patient(id, name, sex, birthdate, password) values (#{id}, #{name}, #{sex}, #{birthdate}, #{password})
+    </insert>
+
+    <update id="updatePatient" parameterType="com.HospitalSystem.Entity.Patient">
+        update Patient set name = #{name}, sex = #{sex}, birthdate = #{birthdate}, password = #{password}
+        where id = #{id}
+    </update>
+
+    <select id="getPatient" parameterType="String" resultType="com.HospitalSystem.Entity.Patient">
+        select * from Patient where id = #{id}
+    </select>
+
+    <select id="searchPatientsByKeyword" parameterType="String" resultType="com.HospitalSystem.Entity.Patient">
+        select * from Patient where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="getAllPatients" resultType="com.HospitalSystem.Entity.Patient">
+        select * from Patient
+    </select>
+
+    <select id="getPatientsForPagination" parameterType="com.HospitalSystem.Entity.Page" resultType="com.HospitalSystem.Entity.Patient">
+        select * from patient limit #{start}, #{size}
+    </select>
+
+    <select id="searchPatientsForPagination" resultType="com.HospitalSystem.Entity.Patient">
+        select * from Patient where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+        limit #{page.start}, #{page.size}
+    </select>
+
+    <select id="getCounts" resultType="Integer">
+        select count(*) from Patient
+    </select>
+
+</mapper>
