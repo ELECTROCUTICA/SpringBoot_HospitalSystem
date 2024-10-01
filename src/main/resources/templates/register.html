@@ -65,10 +65,6 @@
                     </select>
                 </div>
 
-<!--                <div class="input-group mb-3">-->
-<!--                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>-->
-<!--                    <input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="出生日期 输入格式yyyy-MM-dd"/>-->
-<!--                </div>-->
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
                     <input type="date" class="form-control" name="birthdate" id="birthdate" placeholder="出生日期"/>
@@ -114,15 +110,10 @@
                     password: $('#password').val()
                 },
                 complete: function(data) {
-                    if (data.responseText === 'ok') {
-                        alert('注册成功，即将返回登录页');
+                    var rsp = JSON.parse(data.responseText);
+                    alert(rsp.message);
+                    if (rsp.state === 'ok') {
                         window.location.href= /*[[@{/patient/login}]]*/'';
-                    }
-                    else if (data.responseText === 'duplicate') {
-                        alert('注册失败，该身份账号已存在');
-                    }
-                    else {
-                        alert('注册失败，请检查您的输入是否有误')
                     }
                 }
             });

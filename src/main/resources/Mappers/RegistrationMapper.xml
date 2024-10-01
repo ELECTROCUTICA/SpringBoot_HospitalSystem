@@ -21,8 +21,6 @@
         select * from Registration where patient_id = #{patient_id} order by visit_date desc
     </select>
 
-
-
     <select id="getRegistrationByPatientAtDate" resultType="com.HospitalSystem.Entity.Registration">
         select * from Registration where patient_id = #{param1} AND visit_date = #{param2}
     </select>
@@ -36,7 +34,7 @@
     </select>
 
     <select id="getRegistrationsMapByPatientIDForPagination" resultType="com.HospitalSystem.Map.RegistrationMap">
-        select * from RegistrationView where patient_id = #{patient_id} limit #{page.start}, #{page.size}
+        select * from RegistrationView where patient_id = #{patient_id} order by id desc limit #{page.start}, #{page.size}
     </select>
 
     <select id="getRegistrationsMapByDoctorID" parameterType="String" resultType="com.HospitalSystem.Map.RegistrationMap">
@@ -52,14 +50,14 @@
         select * from registrationView where visit_date = #{param1} AND patient_id = #{param2} AND status = 1
     </select>
 
+    <select id="getLastID" resultType="java.lang.Long">
+        select id from  Registration order by id desc limit 1
+    </select>
+
     <select id="getLineUpCount" resultType="Integer">
         select count(*) - 1 as lineup
         from registrationview
         where visit_date = #{param1} AND doctor_id = #{param2} AND status = 1;
-    </select>
-
-    <select id="getCount" resultType="Integer">
-        select count(*) from registration
     </select>
 
 

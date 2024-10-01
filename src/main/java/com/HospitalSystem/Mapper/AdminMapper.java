@@ -14,8 +14,6 @@ public interface AdminMapper {
 
     void updateAdmin(Admin admin);
 
-    void deleteAdmin(String id);
-
     Admin getAdmin(String id);
 
     List<Admin> getAllAdmins();

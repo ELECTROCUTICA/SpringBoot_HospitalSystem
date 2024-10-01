@@ -20,7 +20,7 @@ public class RegistrationMap {
     private String patient_name;
     private String patient_sex;
     private int patient_age;
-    private Date birthdate;
+    private Date patient_birthdate;
     private int status;
     private String visit_date;
 }

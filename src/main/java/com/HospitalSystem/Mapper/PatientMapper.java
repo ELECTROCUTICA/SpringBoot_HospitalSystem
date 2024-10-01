@@ -19,11 +19,11 @@ public interface PatientMapper {
 
     List<Patient> searchPatientsByKeyword(String keyword);
 
-    List<Patient> getAllPatients();
-
     List<Patient> getPatientsForPagination(Page page);
 
     List<Patient> searchPatientsForPagination(Page page, String keyword);
 
     int getCounts();
+
+    List<Patient> getAllPatients();
 }

@@ -32,9 +32,9 @@ public interface RegistrationMapper {
 
     List<RegistrationMap> getRegistrationsMapByPatientAtDate(String date, String patient_id);
 
-    int getLineUpCount(String date, String doctor_id);
+    long getLastID();
 
-    int getCount();
+    int getLineUpCount(String date, String doctor_id);
 
     List<Registration> getAllRegistration();
 }
