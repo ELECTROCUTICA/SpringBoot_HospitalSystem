@@ -2,13 +2,15 @@ package com.HospitalSystem.Map;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationMap {
+public class RegistrationMap implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String doctor_id;

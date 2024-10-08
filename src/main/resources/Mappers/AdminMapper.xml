@@ -13,10 +13,10 @@
     </update>
 
     <select id="getAdmin" parameterType="String" resultType="com.HospitalSystem.Entity.Admin">
-        select * from Admin where id = #{id}
+        select id, password from Admin where id = #{id}
     </select>
 
     <select id="getAllAdmins" resultType="com.HospitalSystem.Entity.Admin">
-        select * from Admin
+        select id, password from Admin
     </select>
 </mapper>

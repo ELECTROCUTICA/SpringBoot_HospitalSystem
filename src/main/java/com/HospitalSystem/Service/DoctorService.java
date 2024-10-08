@@ -11,9 +11,6 @@ public interface DoctorService {
 
     List<Doctor> getDoctorsWorkAtDate(int dep_no, String date);
 
-    /////////////////////////////////////////////////////////////////////////
-
-
     Map<String, Object> doctorLoginHandle(String id, String password, HttpServletRequest request);
 
     Map<Integer, RegistrationMap> getPatientsList(HttpServletRequest request);

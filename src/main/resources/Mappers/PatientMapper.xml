@@ -14,11 +14,11 @@
     </update>
 
     <select id="getPatient" parameterType="String" resultType="com.HospitalSystem.Entity.Patient">
-        select * from Patient where id = #{id}
+        select id, name, sex, birthdate, password from Patient where id = #{id}
     </select>
 
     <select id="searchPatientsByKeyword" parameterType="String" resultType="com.HospitalSystem.Entity.Patient">
-        select * from Patient where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+        select id, name, sex, birthdate, password from Patient where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
     <select id="getAllPatients" resultType="com.HospitalSystem.Entity.Patient">
@@ -26,11 +26,11 @@
     </select>
 
     <select id="getPatientsForPagination" parameterType="com.HospitalSystem.Entity.Page" resultType="com.HospitalSystem.Entity.Patient">
-        select * from patient limit #{start}, #{size}
+        select id, name, sex, birthdate, password from patient limit #{start}, #{size}
     </select>
 
     <select id="searchPatientsForPagination" resultType="com.HospitalSystem.Entity.Patient">
-        select * from Patient where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+        select id, name, sex, birthdate, password from Patient where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
         limit #{page.start}, #{page.size}
     </select>
 

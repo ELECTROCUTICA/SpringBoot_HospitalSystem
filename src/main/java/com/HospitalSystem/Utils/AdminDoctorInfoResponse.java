@@ -2,7 +2,6 @@ package com.HospitalSystem.Utils;
 
 import com.HospitalSystem.Entity.Department;
 import com.HospitalSystem.Entity.Doctor;
-import com.HospitalSystem.Map.RegistrationMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

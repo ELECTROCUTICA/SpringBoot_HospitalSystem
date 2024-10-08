@@ -26,6 +26,8 @@ spring:
       database: 0
       port: 6379
       password:
+  cache:
+    type: redis
 
 mybatis:
   mapper-locations: classpath:/Mappers/*.xml

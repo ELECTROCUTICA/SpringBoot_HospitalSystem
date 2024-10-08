@@ -13,14 +13,14 @@
     </update>
 
     <select id="getDepartment" parameterType="Integer" resultType="com.HospitalSystem.Entity.Department">
-        select * from Department where dep_no = #{dep_no}
+        select dep_no, dep_name from Department where dep_no = #{dep_no}
     </select>
 
-    <select id="getDoctorsByDepartmentNo" parameterType="Integer" resultType="com.HospitalSystem.Entity.Department">
+    <select id="getDoctorsByDepartmentNo" parameterType="Integer" resultType="com.HospitalSystem.Entity.Doctor">
         select * from Doctor join Department on Doctor.dep_no = Department.dep_no where department.dep_no = #{dep_no}
     </select>
 
-    <select id="getDoctorsByDepartmentName" parameterType="String" resultType="com.HospitalSystem.Entity.Department">
+    <select id="getDoctorsByDepartmentName" parameterType="String" resultType="com.HospitalSystem.Entity.Doctor">
         select * from Doctor join Department on Doctor.dep_no = Department.dep_no where department.dep_name = #{dep_name}
     </select>
 
@@ -30,6 +30,6 @@
 
     
     <select id="getAllDepartments" resultType="com.HospitalSystem.Entity.Department">
-        select * from Department
+        select dep_no, dep_name from Department
     </select>
 </mapper>

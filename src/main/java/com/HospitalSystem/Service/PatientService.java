@@ -21,9 +21,9 @@ public interface PatientService {
 
     Map<String, Object> registerHandle(String id, String name, String sex, String birthdate, String password);
 
-    PatientRecordsResponse getPatientRecords(String p, HttpServletRequest request);
+    PatientRecordsResponse getPatientRecords(String p, Patient patient);
 
-    Map<String, Object> cancelRegistration(String id);
+    Map<String, Object> cancelRegistration(String id, Patient patient);
 
     Map<String, Object> editHandle(String id, String name, String sex, String birthdate, String password, HttpServletRequest request);
 

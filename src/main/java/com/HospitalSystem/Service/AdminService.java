@@ -1,6 +1,5 @@
 package com.HospitalSystem.Service;
 
-import com.HospitalSystem.Entity.Admin;
 import com.HospitalSystem.Entity.Department;
 import com.HospitalSystem.Entity.Doctor;
 import com.HospitalSystem.Utils.AdminArrangementResponse;
@@ -9,7 +8,6 @@ import com.HospitalSystem.Utils.AdminPatientsDataResponse;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public interface AdminService {

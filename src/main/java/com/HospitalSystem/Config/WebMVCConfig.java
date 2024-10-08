@@ -12,10 +12,8 @@ public class WebMVCConfig implements WebMvcConfigurer {
 
     @Autowired
     private AdminLoginInterceptor adminLoginInterceptor;
-
     @Autowired
     private DoctorLoginInterceptor doctorLoginInterceptor;
-
     @Autowired
     private PatientLoginInterceptor patientLoginInterceptor;
 
@@ -24,9 +22,11 @@ public class WebMVCConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("redirect:/index");
     }
 
-    @Override                   //针对vue 前后端分离的跨域问题解决方案
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOriginPatterns("*").allowedMethods("GET", "POST", "OPTIONS", "PUT")
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {                  //针对vue 前后端分离的跨域问题解决方案
+        registry.addMapping("/**")
+                .allowedOriginPatterns("*")
+                .allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
                 .allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
                         "Access-Control-Request-Headers", "Authorization", "Token")
                 .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")

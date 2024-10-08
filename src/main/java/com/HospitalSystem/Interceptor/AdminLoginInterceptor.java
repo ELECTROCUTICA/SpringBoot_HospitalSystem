@@ -1,8 +1,4 @@
 package com.HospitalSystem.Interceptor;
-
-import com.HospitalSystem.Entity.Patient;
-import com.HospitalSystem.Utils.JWTUtils;
-import jakarta.servlet.http.Cookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -28,6 +24,5 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
         else {
             return true;
         }
-
     }
 }

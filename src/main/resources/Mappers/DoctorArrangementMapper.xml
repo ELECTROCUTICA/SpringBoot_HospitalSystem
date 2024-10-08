@@ -17,23 +17,23 @@
     </update>
 
     <select id="getDoctorArrangementByDate" parameterType="java.util.Date">
-        select * from DoctorArrangement where date = #{date}
+        select date, doctor_id, remain from DoctorArrangement where date = #{date}
     </select>
 
     <select id="getDoctorArrangementByDoctor" parameterType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorArrangement where doctor_id = #{doctor_id}
+        select date, doctor_id, remain from DoctorArrangement where doctor_id = #{doctor_id}
     </select>
 
     <select id="getDoctorArrangement" resultType="com.HospitalSystem.Entity.DoctorArrangement">
-        select * from doctorarrangement where date = #{param1} AND doctor_id = #{param2}
+        select date, doctor_id, remain from doctorarrangement where date = #{param1} AND doctor_id = #{param2}
     </select>
 
     <select id="getDoctorArrangementMap" resultType="com.HospitalSystem.Map.DoctorArrangementMap">
-        select * from ArrangementView where date = #{param1} AND doctor_id = #{param2}
+        select doctor_id, name, dep_no, dep_name, title, description, date, remain from ArrangementView where date = #{param1} AND doctor_id = #{param2}
     </select>
 
     <select id="getArrangementsByDepartmentAtDate" resultType="com.HospitalSystem.Map.DoctorArrangementMap">
-        select * from ArrangementView where dep_no = #{param1} AND date = #{param2}
+        select doctor_id, name, dep_no, dep_name, title, description, date, remain from ArrangementView where dep_no = #{param1} AND date = #{param2}
     </select>
 
     <select id="getAllDoctorArrangement" resultType="com.HospitalSystem.Entity.DoctorArrangement">

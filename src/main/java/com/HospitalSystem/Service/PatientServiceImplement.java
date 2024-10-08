@@ -13,6 +13,8 @@ import com.HospitalSystem.Utils.PatientArrangementResponse;
 import com.HospitalSystem.Utils.PatientRecordsResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,6 +95,11 @@ public class PatientServiceImplement implements PatientService {
         HashMap<String, Object> data = new HashMap<>();
 
         ArrayList<RegistrationMap> list = (ArrayList<RegistrationMap>)registrationMapper.getRegistrationsMapByPatientAtDate(dateParam, patient.getId());
+        if (list.isEmpty()) {
+            data.put("您今日没有预约就诊", -1);
+            return data;
+        }
+
         for (RegistrationMap item : list) {
             int lineUpCount = registrationMapper.getLineUpCount(item.getVisit_date(), item.getDoctor_id());
             String message;
@@ -188,17 +195,11 @@ public class PatientServiceImplement implements PatientService {
         }
     }
 
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    /**  病人获取挂号记录历史
-     * @param p    挂号的目标医师
-     * @param request  request请求，传递病人token并解析成patient对象
-     * @return PatientRecordsResponse对象，包含所有的挂号信息和分页信息
-     */
-    public PatientRecordsResponse getPatientRecords(String p, HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
-        Patient patient = JWTUtils.getPatientFromToken(token);
-
+    @Cacheable(value = "PatientsRecords", key = "#patient.id+'-'+#p")
+    public PatientRecordsResponse getPatientRecords(String p, Patient patient) {
         int pn;
         if (p == null || p.isEmpty()) {
             pn = 1;
@@ -231,7 +232,8 @@ public class PatientServiceImplement implements PatientService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public Map<String, Object> cancelRegistration(String id) {
+    @CacheEvict(value = "PatientsRecords", allEntries = true)
+    public Map<String, Object> cancelRegistration(String id, Patient patient) {
         HashMap<String, Object> map = new HashMap<>();
         Registration updated = registrationMapper.getRegistration(id);
         if (id != null) {
@@ -360,7 +362,8 @@ public class PatientServiceImplement implements PatientService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class, ParseException.class})
+    @CacheEvict(value = "PatientsRecords", allEntries = true)
     public Map<String, Object> registrationSubmit(String doctor_id, String date, HttpServletRequest request) {
         HashMap<String, Object> map = new HashMap<>();
 

@@ -21,7 +21,6 @@ public class DoctorLoginInterceptor implements HandlerInterceptor {
         if (session == null || session.getAttribute("Doctor") == null) {
             response.sendRedirect(request.getContextPath() + "/doctor/login");
             return false;
-
         }
         else {
             return true;

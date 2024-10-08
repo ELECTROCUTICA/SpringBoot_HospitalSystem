@@ -187,6 +187,7 @@ public class AdminServiceImplement implements AdminService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public Map<String, Object> insertDepartment(Integer dep_no, String dep_name) {
         HashMap<String, Object> map = new HashMap<>();
         if (departmentMapper.getDepartment(dep_no) == null && dep_name != null) {

@@ -1,8 +1,6 @@
 package com.HospitalSystem.Interceptor;
 import com.HospitalSystem.Entity.Patient;
 import com.HospitalSystem.Utils.JWTUtils;
-import jakarta.servlet.http.Cookie;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 

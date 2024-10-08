@@ -17,23 +17,23 @@
     </update>
 
     <select id="getDoctor" parameterType="String" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorView where id = #{id}
+        select id, name, sex, dep_no, dep_name, title, password, description from DoctorView where id = #{id}
     </select>
 
     <select id="getDoctorsByDepartment" parameterType="com.HospitalSystem.Entity.Department" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorView where dep_no = #{dep_no}
+        select id, name, sex, dep_no, dep_name, title, password, description from DoctorView where dep_no = #{dep_no}
     </select>
 
     <select id="getDoctorsByTitle" parameterType="String" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorView where title = #{title}
+        select id, name, sex, dep_no, dep_name, title, password, description from DoctorView where title = #{title}
     </select>
 
     <select id="searchDoctorsByKeyWord" parameterType="String" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorView where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+        select id, name, sex, dep_no, dep_name, title, password, description from DoctorView where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
     <select id="getDoctorsNoWorkAtDate" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorView where dep_no = #{param1} AND id not in (
+        select id, name, sex, dep_no, dep_name, title, password, description from DoctorView where dep_no = #{param1} AND id not in (
             select doctor_id
             from DoctorArrangement
             where date = #{param2}
@@ -41,7 +41,7 @@
     </select>
 
     <select id="getDoctorsWorkAtDate" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorView where dep_no = #{param1} AND id in (
+        select  id, name, sex, dep_no, dep_name, title, password, description from DoctorView where dep_no = #{param1} AND id in (
             select doctor_id
             from DoctorArrangement
             where date = #{param2}
@@ -53,11 +53,11 @@
     </select>
 
     <select id="getDoctorsForPagination" parameterType="com.HospitalSystem.Entity.Page" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from doctorview limit #{start}, #{size}
+        select id, name, sex, dep_no, dep_name, title, password, description from doctorview limit #{start}, #{size}
     </select>
 
     <select id="searchDoctorsForPagination" resultType="com.HospitalSystem.Entity.Doctor">
-        select * from DoctorView where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
+        select id, name, sex, dep_no, dep_name, title, password, description from DoctorView where id LIKE CONCAT('%', #{keyword}, '%') OR name LIKE CONCAT('%', #{keyword}, '%')
         limit #{page.start}, #{page.size}
     </select>
 

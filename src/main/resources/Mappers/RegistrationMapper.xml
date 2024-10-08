@@ -14,31 +14,34 @@
     </update>
 
     <select id="getRegistration" parameterType="String" resultType="com.HospitalSystem.Entity.Registration">
-        select * from Registration where id = #{id}
+        select id, doctor_id, patient_id, status, visit_date from Registration where id = #{id}
     </select>
 
     <select id="getRegistrationsByPatientID" parameterType="String" resultType="com.HospitalSystem.Entity.Registration">
-        select * from Registration where patient_id = #{patient_id} order by visit_date desc
+        select id, doctor_id, patient_id, status, visit_date from Registration where patient_id = #{patient_id} order by visit_date desc
     </select>
 
     <select id="getRegistrationByPatientAtDate" resultType="com.HospitalSystem.Entity.Registration">
-        select * from Registration where patient_id = #{param1} AND visit_date = #{param2}
+        select id, doctor_id, patient_id, status, visit_date from Registration where patient_id = #{param1} AND visit_date = #{param2}
     </select>
 
     <select id="getRegistrationsByDoctorID" parameterType="String" resultType="com.HospitalSystem.Entity.Registration">
-        select * from Registration where doctor_id = #{doctor_id}
+        select id, doctor_id, patient_id, status, visit_date from Registration where doctor_id = #{doctor_id}
     </select>
 
     <select id="getRegistrationsMapByPatientID" parameterType="String" resultType="com.HospitalSystem.Map.RegistrationMap">
-        select * from registrationview where patient_id = #{patient_id} order by id desc
+        select id, doctor_id, doctor_name, doctor_title, dep_no, dep_name, patient_id, patient_name, patient_sex, patient_age,
+               patient_birthdate, status, visit_date from registrationview where patient_id = #{patient_id} order by id desc
     </select>
 
     <select id="getRegistrationsMapByPatientIDForPagination" resultType="com.HospitalSystem.Map.RegistrationMap">
-        select * from RegistrationView where patient_id = #{patient_id} order by id desc limit #{page.start}, #{page.size}
+        select id, doctor_id, doctor_name, doctor_title, dep_no, dep_name, patient_id, patient_name, patient_sex, patient_age,
+               patient_birthdate, status, visit_date from RegistrationView where patient_id = #{patient_id} order by id desc limit #{page.start}, #{page.size}
     </select>
 
     <select id="getRegistrationsMapByDoctorID" parameterType="String" resultType="com.HospitalSystem.Map.RegistrationMap">
-        select * from registrationview where doctor_id = #{doctor_id} AND visit_date between DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()
+        select id, doctor_id, doctor_name, doctor_title, dep_no, dep_name, patient_id, patient_name, patient_sex, patient_age,
+               patient_birthdate, status, visit_date from registrationview where doctor_id = #{doctor_id} AND visit_date between DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()
                                        order by
                                            case
                                                when status = 1 then 0 else 1 end,
@@ -47,7 +50,8 @@
     </select>
 
     <select id="getRegistrationsMapByPatientAtDate" resultType="com.HospitalSystem.Map.RegistrationMap">
-        select * from registrationView where visit_date = #{param1} AND patient_id = #{param2} AND status = 1
+        select id, doctor_id, doctor_name, doctor_title, dep_no, dep_name, patient_id, patient_name, patient_sex, patient_age,
+               patient_birthdate, status, visit_date from registrationView where visit_date = #{param1} AND patient_id = #{param2} AND status = 1
     </select>
 
     <select id="getLastID" resultType="java.lang.Long">

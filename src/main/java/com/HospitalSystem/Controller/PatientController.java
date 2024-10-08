@@ -63,14 +63,19 @@ public class PatientController {
     @RequestMapping("/interface/getRecords")
     @ResponseBody
     public PatientRecordsResponse getRecords(String p, HttpServletRequest request) {
-        return patientService.getPatientRecords(p, request);
+        String token = request.getHeader("Authorization");
+        Patient patient = JWTUtils.getPatientFromToken(token);
+
+        return patientService.getPatientRecords(p, patient);
     }
 
 
     @RequestMapping("/interface/cancelRegistration")
     @ResponseBody
-    public Map<String, Object> cancelRegistration(String id) {
-        return patientService.cancelRegistration(id);
+    public Map<String, Object> cancelRegistration(String id, HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Patient patient = JWTUtils.getPatientFromToken(token);
+        return patientService.cancelRegistration(id, patient);
     }
 
 
@@ -95,7 +100,7 @@ public class PatientController {
         return patientService.getDoctorsWorkAtDate(dep_no, date);
     }
 
-    @RequestMapping("registration/getDescription")
+    @RequestMapping("/registration/getDescription")
     @ResponseBody
     public String getDoctorDescription(String doctor_id, String date) {
         return patientService.getDoctorDescription(doctor_id, date);
@@ -106,6 +111,12 @@ public class PatientController {
     @ResponseBody
     public Map<String, Object> submit(String doctor_id, String date, HttpServletRequest request) {
         return patientService.registrationSubmit(doctor_id, date, request);
+    }
+
+    @RequestMapping("/interface/requestAI")
+    @ResponseBody
+    public String requestAI(String message) {
+        return ChatGPTAPI.sendRequestToChatGPT(message);
     }
 }
 
