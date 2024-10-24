@@ -12,7 +12,7 @@ import org.json.*;
 public class ChatGPTAPI {
 
     private static final String URL = "https://api.chatanywhere.tech/v1/chat/completions";
-    private static final String API_KEY = "sk-0FipaHgKpAuhVS0YV45vLDV6fsTDJ5k6ABxbFu7LXKLlLJNm";
+    private static final String API_KEY = "*****";
 
     public static String sendRequestToChatGPT(String message) {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
